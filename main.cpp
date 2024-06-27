@@ -93,10 +93,21 @@ void enfSenhaAten(senhasAtendidas *sAten, int s) {
 
 // _____________________________________________________
 
-int count(senhasGeradas *sGer) {
+int contSenhas(senhasGeradas *sGer) {
 	int qtde = 0;
 	noGerado *no;
 	no = sGer->ini;
+	while (no != NULL) {
+		qtde++;
+		no = no->prox;
+	}
+	return qtde;
+}
+
+int pesAten(senhasAtendidas *sAten) {
+	int qtde = 0;
+	noAtendido *no;
+	no = sAten->ini;
 	while (no != NULL) {
 		qtde++;
 		no = no->prox;
@@ -134,7 +145,7 @@ int gerSenha(){
 
 void opcoes(senhasGeradas *sGer, senhasAtendidas *sAten){
     cout << "--------------------------------------";
-    cout << endl << count(sGer) << " pessoas estao aguardando atendimento" << endl;
+    cout << endl << contSenhas(sGer) << " pessoas estao aguardando atendimento" << endl;
     cout << "--------------------------------------";
     
     int opcao;
@@ -150,7 +161,8 @@ void opcoes(senhasGeradas *sGer, senhasAtendidas *sAten){
     switch(opcao){
         case 0:
             cout << "Sair" << endl;
-            if(count(sGer) == 0){
+            if(contSenhas(sGer) == 0){
+		cout << "Pessoas atendidas: " << pesAten(sAten) << endl;
                 cout << "Atendimentos encerrados" << endl;
                 freeAtendimento(sAten);
             }else{
